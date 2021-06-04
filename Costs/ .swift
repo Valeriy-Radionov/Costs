@@ -32,13 +32,18 @@ class ViewController: UIViewController {
     @IBAction func numberPressed(_ sender: UIButton) {
         guard let number = sender.currentTitle else { return }
         guard let displayText = displayLabel.text else { return }
+
         if stillTyping {
             if displayText.count < 15 {
                 displayLabel.text = displayText + number
             }
         } else {
-            displayLabel.text = number
-            stillTyping = true
+            if sender.currentTitle == "0" {
+                return
+            } else {
+                displayLabel.text = number
+                stillTyping = true
+            }
         }
     }
     
