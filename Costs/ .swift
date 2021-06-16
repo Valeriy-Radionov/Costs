@@ -159,8 +159,8 @@ class ViewController: UIViewController {
         let dateNow = Date()
         let calendar = Calendar.current
         let dateComponentsNow = calendar.dateComponents([.year, .month, .day], from: dateNow)
-        let startDate = formatter.date(from: "\(firstComponents.year!)/\(firstComponents.month!)/\(firstComponents.day!) 00:00")!
-        let endDate = formatter.date(from: "\(lastComponents.year!)/\(lastComponents.month!)/\(lastComponents.day!) 23:59")
+//        let startDate = formatter.date(from: "\(firstComponents.year!)/\(firstComponents.month!)/\(firstComponents.day!) 00:00")!
+//        let endDate = formatter.date(from: "\(lastComponents.year!)/\(lastComponents.month!)/\(lastComponents.day!) 23:59")
     }
     
 }
