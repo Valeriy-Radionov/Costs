@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         spendingArray = realm.objects(Spending.self)
         leftLabels()
+        monthlyExpenses()
     }
     
     @IBAction func numberPressed(_ sender: UIButton) {
@@ -158,9 +159,41 @@ class ViewController: UIViewController {
     func monthlyExpenses() {
         let dateNow = Date()
         let calendar = Calendar.current
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        
         let dateComponentsNow = calendar.dateComponents([.year, .month, .day], from: dateNow)
-//        let startDate = formatter.date(from: "\(firstComponents.year!)/\(firstComponents.month!)/\(firstComponents.day!) 00:00")!
-//        let endDate = formatter.date(from: "\(lastComponents.year!)/\(lastComponents.month!)/\(lastComponents.day!) 23:59")
+        // first day month
+        let startDateMonth = formatter.date(from: "\(dateComponentsNow.year!)/\(dateComponentsNow.month!)/01 00:00") as Any
+        
+        // Last day month
+        let lastDayMonth: Int
+    
+        if Int(dateComponentsNow.year!) % 4 == 0 && dateComponentsNow.month == 2 {
+            lastDayMonth = 29
+        } else {
+            switch dateComponentsNow.month {
+            case 1: lastDayMonth = 31
+            case 2: lastDayMonth = 28
+            case 3: lastDayMonth = 31
+            case 4: lastDayMonth = 30
+            case 5: lastDayMonth = 31
+            case 6: lastDayMonth = 30
+            case 7: lastDayMonth = 31
+            case 8: lastDayMonth = 31
+            case 9: lastDayMonth = 30
+            case 10: lastDayMonth = 31
+            case 11: lastDayMonth = 30
+            case 12: lastDayMonth = 31
+                
+            default: return
+            }
+        }
+
+        let endDateMonth = formatter.date(from: "\(dateComponentsNow.year!)/\(dateComponentsNow.month!)/\(lastDayMonth) 23:59") as Any
+        let filtredMonth: Int = realm.objects(Spending.self).filter("self.data >= %@ && self.data <= %@", startDateMonth, endDateMonth).sum(ofProperty: "cost")
+        
+        print(filtredMonth)
     }
     
 }
