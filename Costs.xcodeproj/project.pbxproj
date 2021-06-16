@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		2AD65A4D26680F5A001BEB0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AD65A4B26680F5A001BEB0C /* Main.storyboard */; };
 		2AD65A4F26680F6F001BEB0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD65A4E26680F6F001BEB0C /* Assets.xcassets */; };
 		2AD65A5226680F6F001BEB0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AD65A5026680F6F001BEB0C /* LaunchScreen.storyboard */; };
+		2AE83A8D2670D39000F6DDFD /* Limit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE83A8C2670D39000F6DDFD /* Limit.swift */; };
 		A0BBAF1C96DD97C202402164 /* Pods_Costs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 753D56890A8F141B22F2DBC4 /* Pods_Costs.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		2AD65A4E26680F6F001BEB0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AD65A5126680F6F001BEB0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2AD65A5326680F6F001BEB0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AE83A8C2670D39000F6DDFD /* Limit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Limit.swift; sourceTree = "<group>"; };
 		753D56890A8F141B22F2DBC4 /* Pods_Costs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Costs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E3962AE1385F72855035991 /* Pods-Costs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Costs.release.xcconfig"; path = "Target Support Files/Pods-Costs/Pods-Costs.release.xcconfig"; sourceTree = "<group>"; };
 		A0E80415563B4915F7EB0F10 /* Pods-Costs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Costs.debug.xcconfig"; path = "Target Support Files/Pods-Costs/Pods-Costs.debug.xcconfig"; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				2AD65A4726680F5A001BEB0C /* SceneDelegate.swift */,
 				2AD65A4926680F5A001BEB0C /*  .swift */,
 				2AAC2B05266A53DD004AF7CF /* SpendingModel.swift */,
+				2AE83A8C2670D39000F6DDFD /* Limit.swift */,
 				2A06E81A26696C5500420532 /* CustomTableViewCell.swift */,
 				2AD65A4B26680F5A001BEB0C /* Main.storyboard */,
 				2AD65A4E26680F6F001BEB0C /* Assets.xcassets */,
@@ -108,6 +111,7 @@
 				2AD65A3E26680F5A001BEB0C /* Sources */,
 				2AD65A3F26680F5A001BEB0C /* Frameworks */,
 				2AD65A4026680F5A001BEB0C /* Resources */,
+				C199FA4B00D33AB3E44A486E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -187,6 +191,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C199FA4B00D33AB3E44A486E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Costs/Pods-Costs-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Costs/Pods-Costs-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Costs/Pods-Costs-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -195,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AD65A4A26680F5A001BEB0C /*  .swift in Sources */,
+				2AE83A8D2670D39000F6DDFD /* Limit.swift in Sources */,
 				2AD65A4626680F5A001BEB0C /* AppDelegate.swift in Sources */,
 				2A06E81B26696C5500420532 /* CustomTableViewCell.swift in Sources */,
 				2AAC2B06266A53DD004AF7CF /* SpendingModel.swift in Sources */,

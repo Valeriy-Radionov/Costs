@@ -6,4 +6,11 @@
 //  Copyright © 2021 Valera. All rights reserved.
 //
 
-import Foundation
+import RealmSwift
+
+class Limit: Object {
+    
+    @objc dynamic var limitSum = ""
+    @objc dynamic var limitDate = NSDate()
+    @objc dynamic var limitLastDay = NSDate()
+}
