@@ -545,6 +545,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="F_ckTheMoney" id="Y4f-uz-ftR"/>
                     <connections>
+                        <outlet property="allSpending" destination="X7s-pJ-aGU" id="PH9-YC-3pc"/>
                         <outlet property="displayLabel" destination="eDi-kD-6vC" id="yId-L0-Cb8"/>
                         <outlet property="howManyCanSpend" destination="Hxk-ga-ySi" id="WmJ-Ef-Oh5"/>
                         <outlet property="limitLabel" destination="YWX-ay-e5t" id="JUH-EP-4VS"/>

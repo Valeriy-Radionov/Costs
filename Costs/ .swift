@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet var limitLabel: UILabel!
     @IBOutlet var howManyCanSpend: UILabel!
     @IBOutlet var spendByCheck: UILabel!
+    @IBOutlet var allSpending: UILabel!
     @IBOutlet var numberFromKeyboard: [UIButton]! {
         didSet {
             for button in numberFromKeyboard {
@@ -71,16 +72,18 @@ class ViewController: UIViewController {
             self.tableView.insertRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
             self.tableView.endUpdates()
         }
+        self.leftLabels()
         tableView.reloadData()
     }
     @IBAction func limitPressed(_ sender: UIButton) {
         let alert = UIAlertController(title: "Установить лимит", message: "Введите сумму и количество дней" , preferredStyle: .alert)
         let actionAdd = UIAlertAction(title: "Установить", style: .default) { action in
             let tfSum = alert.textFields?[0].text
-            self.limitLabel.text = tfSum
             
             let tfDay = alert.textFields?[1].text
-            guard tfDay != "" else { return }
+            guard tfDay != "" && tfSum != "" else { return }
+            self.limitLabel.text = tfSum
+            
             if let day = tfDay {
                 let dateNow = Date()
                 let lastDay: Date = dateNow.addingTimeInterval(60*60*24*Double(day)!)
@@ -99,8 +102,8 @@ class ViewController: UIViewController {
                     }
                 }
                 
-                
             }
+            self.leftLabels()
         }
         alert.addTextField { money in
             money.placeholder = "Сумма"
@@ -111,7 +114,7 @@ class ViewController: UIViewController {
             day.placeholder = "Количество дней"
             day.keyboardType = .asciiCapableNumberPad
         }
-
+        
         let actionCancel = UIAlertAction(title: "Отмена", style: .default) { _ in }
         
         alert.addAction(actionCancel)
@@ -123,6 +126,7 @@ class ViewController: UIViewController {
     private func leftLabels() {
         let limit = self.realm.objects(Limit.self)
         
+        guard limit.isEmpty == false else { return }
         limitLabel.text = limit[0].limitSum
         
         let calendar = Calendar.current
@@ -137,7 +141,7 @@ class ViewController: UIViewController {
         
         let startDate = formatter.date(from: "\(firstComponents.year!)/\(firstComponents.month!)/\(firstComponents.day!) 00:00")!
         let endDate = formatter.date(from: "\(lastComponents.year!)/\(lastComponents.month!)/\(lastComponents.day!) 23:59")
-//
+        //
         let filtredLimit: Int = realm.objects(Spending.self).filter("self.data >= %@ && self.data <= %@", startDate, endDate!).sum(ofProperty: "cost")
         
         spendByCheck.text = "\(filtredLimit)"
@@ -147,6 +151,16 @@ class ViewController: UIViewController {
         let c = a - b
         
         howManyCanSpend.text = "\(c)"
+        let allSpend : Int = realm.objects(Spending.self).sum(ofProperty: "cost")
+        allSpending.text = "\(allSpend)"
+    }
+    
+    func monthlyExpenses() {
+        let dateNow = Date()
+        let calendar = Calendar.current
+        let dateComponentsNow = calendar.dateComponents([.year, .month, .day], from: dateNow)
+        let startDate = formatter.date(from: "\(firstComponents.year!)/\(firstComponents.month!)/\(firstComponents.day!) 00:00")!
+        let endDate = formatter.date(from: "\(lastComponents.year!)/\(lastComponents.month!)/\(lastComponents.day!) 23:59")
     }
     
 }
@@ -160,7 +174,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
-        let spending =  spendingArray[indexPath.row]
+        let spending =  spendingArray.sorted(byKeyPath: "data", ascending: false)[indexPath.row]
         cell.recordCategory.text = spending.category
         cell.recordCost.text = String(spending.cost)
         switch spending.category {
@@ -179,9 +193,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let configurationDelete = UISwipeActionsConfiguration(actions: [UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] (action, view, completionHandler) in
-            guard let editingRow = self?.spendingArray[indexPath.row] else { return }
+            guard let editingRow = self?.spendingArray.sorted(byKeyPath: "data", ascending: false)[indexPath.row] else { return }
             try! self?.realm.write {
                 self?.realm.delete(editingRow)
+                self?.leftLabels()
                 tableView.reloadData()
             }
             completionHandler(true)
